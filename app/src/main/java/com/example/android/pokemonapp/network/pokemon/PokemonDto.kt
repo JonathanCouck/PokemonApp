@@ -5,7 +5,15 @@ import com.squareup.moshi.Json
 
 data class PokemonResponse (
     @Json(name = "results")
-    val results: List<PokemonDto>
+    val results: List<PokemonBasicDto>
+)
+
+data class PokemonBasicDto(
+    @Json(name = "name")
+    val name: String,
+
+    @Json(name = "url")
+    val url: String
 )
 
 data class PokemonDto(
@@ -15,7 +23,13 @@ data class PokemonDto(
     @Json(name = "name")
     val name: String,
 
-    @Json(name = "sprites.front_default")
+    @Json(name = "height")
+    val height: String,
+
+    @Json(name = "weight")
+    val weight: String,
+
+    @Json(name = "sprites")
     val sprite: PokemonSpriteDto
 )
 

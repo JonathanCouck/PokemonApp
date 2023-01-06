@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.android.pokemonapp.R
+import com.example.android.pokemonapp.Utils
 import com.example.android.pokemonapp.databinding.FragmentPokemonSearchBinding
+import com.example.android.pokemonapp.databinding.LayoutPokemonBinding
 
 class PokemonSearchFragment : Fragment() {
+    private lateinit var binding: FragmentPokemonSearchBinding
+    private lateinit var viewModel: PokemonSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,22 +25,38 @@ class PokemonSearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentPokemonSearchBinding>(
+        binding = DataBindingUtil.inflate<FragmentPokemonSearchBinding>(
             inflater, R.layout.fragment_pokemon_search, container, false
         )
 
         val pokemonSearchVM: PokemonSearchViewModel by activityViewModels()
+        viewModel = pokemonSearchVM
+
+        setOnClickListeners()
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    private fun handleSearchClick() {
+        viewModel.fetchPokemon(binding.searchInputSearch.text.toString())
+
+        Utils.hideSoftKeyboard(this@PokemonSearchFragment.requireContext(), binding.searchInputSearch)
+    }
+
+    private fun setOnClickListeners() {
+        binding.searchButton.setOnClickListener {
+            handleSearchClick()
+        }
 
         val adapter = PokemonAdapter()
         binding.pokemonRecycler.adapter = adapter
 
-        pokemonSearchVM.pokemon.observe(viewLifecycleOwner, Observer {
+        viewModel.pokemon.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
 
-        // Inflate the layout for this fragment
-        return binding.root
     }
 }

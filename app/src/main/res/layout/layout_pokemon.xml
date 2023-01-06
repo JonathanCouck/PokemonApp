@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/pokemon_gradient_bg"
         android:padding="16dp">
 
@@ -24,10 +24,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/pokemon_logo" />
+            tools:srcCompat="@drawable/loading_animation" />
 
         <TextView
-            android:id="@+id/tv_nrsign"
+            android:id="@+id/tv_nr_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -35,7 +35,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/pokemon_img"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/tv_nr"
             android:layout_width="wrap_content"
@@ -43,8 +44,9 @@
             android:text="@{Integer.toString(pokemon.number)}"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_nrsign"
+            app:layout_constraintStart_toEndOf="@+id/tv_nr_sign"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="001" />
 
         <TextView
@@ -56,29 +58,47 @@
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/tv_nr"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Name" />
-
         <TextView
-            android:id="@+id/tv_type"
+            android:id="@+id/tv_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Electric"
+            android:text="50"
+            android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pokemon_img"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/pokemon_img" />
 
         <TextView
-            android:id="@+id/tv_ability"
+            android:id="@+id/tv_weight_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="Rock-head"
+            android:textSize="16sp"
+            android:text=" kg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight" />
+        <TextView
+            android:id="@+id/tv_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight_sign"
+            tools:text="20" />
+
+        <TextView
+            android:id="@+id/tv_height_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" cm"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_type"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/tv_height" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

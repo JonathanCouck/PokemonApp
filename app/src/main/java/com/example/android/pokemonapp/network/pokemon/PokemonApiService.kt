@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 private const val BASE_URL = "https://pokeapi.co/api/v2/pokemon/"
 
@@ -27,6 +28,15 @@ private val retrofit =
         .build()
 
 interface PokemonApiService {
-    @GET(".")
-    fun getCharacters(): Deferred<Pokemon>
+    @GET("?limit=694&offset=0")
+    fun getPokemonAsync(): Deferred<PokemonResponse>
+
+    @GET("{name}")
+    fun getPokemonByNameAsync(@Path("name") name: String): Deferred<PokemonDto>
+}
+
+object PokemonApi {
+    val retrofitService: PokemonApiService by lazy {
+        retrofit.create(PokemonApiService::class.java)
+    }
 }

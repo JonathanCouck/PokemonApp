@@ -4,25 +4,26 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.android.pokemonapp.database.DatabaseRoom
 import com.example.android.pokemonapp.domain.Pokemon
+import com.example.android.pokemonapp.repository.PokemonRepository
+import kotlinx.coroutines.launch
 
 class PokemonSearchViewModel(application: Application): AndroidViewModel(application) {
 
-    //list of all pokemon
-    private val _pokemon = MutableLiveData<List<Pokemon>>()
-    val pokemon: LiveData<List<Pokemon>>
-        get() = _pokemon
+    private val database = DatabaseRoom.getInstance(application.applicationContext)
+    private val pokemonRepository = PokemonRepository(database)
+
+    val pokemon = pokemonRepository.pokemon
 
     init {
-        getPokemon()
+        fetchPokemon("", true)
     }
 
-    private fun getPokemon() {
-        _pokemon.value = listOf(
-            Pokemon(105, "marowak", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png"),
-            Pokemon(215, "sneasel", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/215.png"),
-            Pokemon(45, "vileplume", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png"),
-            Pokemon(151, "mew", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png")
-        )
+    fun fetchPokemon(searchTerm: String, initial: Boolean = false) {
+        viewModelScope.launch {
+            pokemonRepository.refreshPokemon(searchTerm.lowercase(), initial)
+        }
     }
 }

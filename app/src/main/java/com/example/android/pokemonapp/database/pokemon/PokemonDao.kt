@@ -14,4 +14,7 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon_table ORDER BY number ASC")
     fun getAllPokemon(): LiveData<List<DatabasePokemon>>
+
+    @Query("DELETE FROM pokemon_table")
+    fun deleteAll()
 }
