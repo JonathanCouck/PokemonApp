@@ -35,6 +35,7 @@ class PokemonAdapter: ListAdapter<Pokemon, PokemonAdapter.ViewHolder>(
         fun bind(item: Pokemon) {
             binding.pokemon = item
             binding.executePendingBindings()
+            binding.tvNr.text = String.format("%03d", item.number)
         }
     }
 

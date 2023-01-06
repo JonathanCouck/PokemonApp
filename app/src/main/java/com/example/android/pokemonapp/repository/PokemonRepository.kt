@@ -9,6 +9,7 @@ import com.example.android.pokemonapp.network.pokemon.PokemonDto
 import com.example.android.pokemonapp.network.pokemon.asDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.min
 
 class PokemonRepository(private val db: DatabaseRoom) {
 
@@ -19,24 +20,36 @@ class PokemonRepository(private val db: DatabaseRoom) {
     suspend fun refreshPokemon(searchTerm: String, initial: Boolean) {
         withContext(Dispatchers.IO) {
             try {
-                if(!initial) {
+                if(initial) {
+                    if(db.pokemonDao.getAllPokemon().value?.count() == 0) {
+                        var names = PokemonApi.retrofitService.getPokemonAsync().await().results
+
+                        val pokemonList: ArrayList<PokemonDto> = arrayListOf();
+                        var i = 0
+
+                        while(i<20 && i < names.count()) {
+                            pokemonList.add(PokemonApi.retrofitService.getPokemonByNameAsync(names[i].name).await())
+                            i++
+                        }
+                        db.pokemonDao.insertAll(pokemonList.asDatabase())
+                    } else {
+                        //Empty else
+                    }
+                } else {
                     var names = PokemonApi.retrofitService.getPokemonAsync().await().results
 
                     if(searchTerm.isNotBlank())
                         names = names.filter { p -> p.name.contains(searchTerm) }
 
-                    val pokemonList: ArrayList<PokemonDto> = arrayListOf<PokemonDto>();
+                    val pokemonList: ArrayList<PokemonDto> = arrayListOf();
                     var i = 0
 
-                    while(i<20 && i < names.count()) {
+                    while(i < min(names.count(), 30)) {
                         pokemonList.add(PokemonApi.retrofitService.getPokemonByNameAsync(names[i].name).await())
                         i++
                     }
-
                     db.pokemonDao.deleteAll()
                     db.pokemonDao.insertAll(pokemonList.asDatabase())
-                } else {
-                    Log.d("Woops","")
                 }
             } catch (e: Exception) {
                 Log.e("Can't get pokemon", e.message.toString())

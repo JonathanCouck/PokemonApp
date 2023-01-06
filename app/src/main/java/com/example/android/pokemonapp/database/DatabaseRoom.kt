@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.android.pokemonapp.database.pokemon.DatabasePokemon
 import com.example.android.pokemonapp.database.pokemon.PokemonDao
 
-@Database(entities = [DatabasePokemon::class], version = 1)
+@Database(entities = [DatabasePokemon::class], version = 3)
 abstract class DatabaseRoom: RoomDatabase() {
 
     abstract val pokemonDao: PokemonDao

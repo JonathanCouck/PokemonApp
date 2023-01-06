@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">PokemonApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pokemon">Pokémon</string>
+    <string name="welcome_text">Welcome to my little application for finding any pokemon you like and a little bit of information about it</string>
+    <string name="search_for_a_pokemon">Search for a Pokémon</string>
+    <string name="search_hint">Pikachu</string>
+    <string name="nr">#</string>
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+    <string name="nr_format">%03d</string>
 </resources>

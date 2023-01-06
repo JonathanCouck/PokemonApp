@@ -2,8 +2,52 @@
 <resources>
     <style name="style_button">
         <item name="backgroundTint">@color/dark_blue</item>
-        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_width">@dimen/xxl</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
 
+    <style name="home_text">
+        <item name="android:layout_margin">@dimen/m</item>
+        <item name="android:textSize">@dimen/m_text</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/light_yellow</item>
+    </style>
+
+    <style name="main_layout">
+        <item name="android:background">@color/light_blue</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">@dimen/s</item>
+        <item name="android:paddingLeft">@dimen/s</item>
+        <item name="android:paddingRight">@dimen/s</item>
+    </style>
+
+    <style name="pokemon">
+        <item name="android:layout_marginTop">@dimen/xs</item>
+        <item name="android:layout_marginBottom">@dimen/xs</item>
+        <item name="android:background">@drawable/pokemon_gradient_bg</item>
+        <item name="android:padding">@dimen/xs</item>
+    </style>
+
+    <style name="ll_centerH_vertical">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="pokemon_image">
+        <item name="srcCompat">@drawable/loading_img</item>
+        <item name="android:layout_width">@dimen/xl</item>
+        <item name="android:layout_height">@dimen/xl</item>
+    </style>
+
+    <style name="pokemon_small_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/s_text</item>
+    </style>
+
+    <style name="pokemon_large_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/m_text</item>
     </style>
 </resources>

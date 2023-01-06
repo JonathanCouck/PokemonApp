@@ -24,10 +24,10 @@ data class PokemonDto(
     val name: String,
 
     @Json(name = "height")
-    val height: String,
+    val height: Int,
 
     @Json(name = "weight")
-    val weight: String,
+    val weight: Double,
 
     @Json(name = "sprites")
     val sprite: PokemonSpriteDto
@@ -42,8 +42,10 @@ fun List<PokemonDto>.asDatabase(): Array<DatabasePokemon> {
     return this.map {
         DatabasePokemon(
             number = it.number,
-            name = it.name,
-            spriteUrl = it.sprite.spriteUrl
+            name = it.name.capitalize(),
+            weight = it.weight/10,
+            height = it.height*10,
+            spriteUrl = it.sprite.spriteUrl,
         )
     }.toTypedArray()
 }

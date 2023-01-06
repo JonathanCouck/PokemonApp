@@ -7,26 +7,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screens.search.PokemonSearchFragment"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
+        style="@style/ll_centerH_vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp">
+            style="@style/ll_centerH_vertical"
+            android:layout_marginTop="@dimen/s"
+            android:layout_marginBottom="@dimen/s">
             <EditText
                 android:id="@+id/search_input_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Pikachu"/>
+                android:hint="@string/search_hint"/>
             <Button
                 android:id="@+id/search_button"
                 style="@style/style_button"
-                android:text="Search for a Pokémon" />
+                android:text="@string/search_for_a_pokemon" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

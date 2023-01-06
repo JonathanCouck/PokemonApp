@@ -13,14 +13,20 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/xl"
             android:src="@drawable/pokemon_logo" />
+
+        <TextView
+            android:id="@+id/explanation_tv"
+            style="@style/home_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_text" />
 
         <Button
             android:id="@+id/search_button"
             style="@style/style_button"
-            android:layout_marginTop="25dp"
-            android:text="Pokémon" />
+            android:text="@string/pokemon" />
 
     </LinearLayout>
 </layout>

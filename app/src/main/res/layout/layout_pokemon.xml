@@ -12,14 +12,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/pokemon_gradient_bg"
-        android:padding="16dp">
+        style="@style/pokemon">
 
         <ImageView
             android:id="@+id/pokemon_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            style="@style/pokemon_image"
             app:imageUrl="@{pokemon.spriteUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,21 +25,16 @@
 
         <TextView
             android:id="@+id/tv_nr_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text="@string/nr"
+            style="@style/pokemon_large_text"
             android:layout_marginStart="16dp"
-            android:text="#"
-            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/pokemon_img"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:id="@+id/tv_nr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Integer.toString(pokemon.number)}"
-            android:textSize="20sp"
+            style="@style/pokemon_large_text"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tv_nr_sign"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,52 +43,43 @@
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="@{pokemon.name}"
-            android:textSize="20sp"
+            style="@style/pokemon_large_text"
+            android:layout_marginStart="@dimen/s"
             app:layout_constraintStart_toEndOf="@+id/tv_nr"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Name" />
         <TextView
             android:id="@+id/tv_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="50"
+            android:text="@{Double.toString(pokemon.weight)}"
+            style="@style/pokemon_small_text"
+            android:layout_marginStart="@dimen/s"
             android:textStyle="bold"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pokemon_img" />
+            app:layout_constraintStart_toEndOf="@+id/pokemon_img"
+            tools:text="50" />
 
         <TextView
             android:id="@+id/tv_weight_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text=" kg"
+            android:text="@string/kg"
+            style="@style/pokemon_small_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_weight" />
         <TextView
             android:id="@+id/tv_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:text="@{Integer.toString(pokemon.height)}"
+            style="@style/pokemon_small_text"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="20"
+            android:layout_marginStart="@dimen/s"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_weight_sign"
             tools:text="20" />
 
         <TextView
             android:id="@+id/tv_height_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" cm"
-            android:textSize="16sp"
+            android:text="@string/cm"
+            style="@style/pokemon_small_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_height" />
 

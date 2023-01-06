@@ -14,6 +14,12 @@ data class DatabasePokemon (
     @ColumnInfo(name = "name")
     var name: String,
 
+    @ColumnInfo(name = "weight")
+    var weight: Double,
+
+    @ColumnInfo(name = "height")
+    var height: Int,
+
     @ColumnInfo(name = "spriteUrl")
     var spriteUrl: String
 )
@@ -22,7 +28,9 @@ fun List<DatabasePokemon>.asDomain(): List<Pokemon> {
     return map {
         Pokemon(
             number = it.number,
-            name = it.name.capitalize(),
+            name = it.name.replace('-', ' ').capitalize(),
+            weight = it.weight,
+            height = it.height,
             spriteUrl = it.spriteUrl,
         )
     }
