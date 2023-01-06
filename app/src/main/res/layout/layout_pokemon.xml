@@ -12,6 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/pokemon_gradient_bg"
         android:padding="16dp">
 
         <ImageView
@@ -25,16 +27,25 @@
             tools:srcCompat="@drawable/pokemon_logo" />
 
         <TextView
-            android:id="@+id/tv_nr"
+            android:id="@+id/tv_nrsign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{Integer.toString(pokemon.number)}"
+            android:text="#"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/pokemon_img"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/tv_nr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(pokemon.number)}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_nrsign"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nr"/>
+            tools:text="001" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -45,7 +56,7 @@
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/tv_nr"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Name"/>
+            tools:text="Name" />
 
         <TextView
             android:id="@+id/tv_type"
