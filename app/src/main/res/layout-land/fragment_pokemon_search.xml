@@ -16,13 +16,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
-                android:id="@+id/search_input_search"
+                android:id="@+id/search_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_hint" />
 
             <Button
-                android:id="@+id/search_button"
+                android:id="@+id/search_pokemon_button"
                 style="@style/style_button"
                 android:text="@string/search_for_a_pokemon" />
         </LinearLayout>

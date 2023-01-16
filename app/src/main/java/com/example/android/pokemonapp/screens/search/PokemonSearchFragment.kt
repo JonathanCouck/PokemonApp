@@ -39,13 +39,13 @@ class PokemonSearchFragment : Fragment() {
     }
 
     private fun handleSearchClick() {
-        viewModel.fetchPokemon(binding.searchInputSearch.text.toString())
+        viewModel.fetchPokemon(binding.searchInput.text.toString())
 
-        Utils.hideSoftKeyboard(this@PokemonSearchFragment.requireContext(), binding.searchInputSearch)
+        Utils.hideSoftKeyboard(this@PokemonSearchFragment.requireContext(), binding.searchInput)
     }
 
     private fun setOnClickListeners() {
-        binding.searchButton.setOnClickListener {
+        binding.searchPokemonButton.setOnClickListener {
             handleSearchClick()
         }
 
