@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.android.pokemonapp.database.DatabaseRoom
-import com.example.android.pokemonapp.domain.Pokemon
+import com.example.android.pokemonapp.network.pokemon.PokemonDto
 import com.example.android.pokemonapp.repository.PokemonRepository
 import kotlinx.coroutines.launch
 
@@ -17,13 +17,31 @@ class PokemonSearchViewModel(application: Application): AndroidViewModel(applica
 
     val pokemon = pokemonRepository.pokemon
 
+    private val _selectedPokemon = MutableLiveData<PokemonDto?>()
+    val selectedPokemon: LiveData<PokemonDto?> = _selectedPokemon
+
     init {
-        fetchPokemon("", true)
+        fetchAllPokemon("", true)
     }
 
-    fun fetchPokemon(searchTerm: String, initial: Boolean = false) {
+    fun fetchAllPokemon(searchTerm: String, initial: Boolean = false) {
         viewModelScope.launch {
             pokemonRepository.refreshPokemon(searchTerm.lowercase(), initial)
         }
+    }
+
+    fun fetchPokemon(name: String) {
+        viewModelScope.launch {
+            val newPokemon = pokemonRepository.getPokemonDetails(name)
+            _selectedPokemon.postValue(newPokemon.value)
+        }
+    }
+
+    private val _navigateToPokemonDetail = MutableLiveData<String>()
+    val navigateToPokemonDetail
+        get() = _navigateToPokemonDetail
+
+    fun onPokemonClicked(name: String) {
+        _navigateToPokemonDetail.value = name
     }
 }

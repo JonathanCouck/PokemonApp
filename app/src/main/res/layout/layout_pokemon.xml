@@ -7,12 +7,17 @@
         <variable
             name="pokemon"
             type="com.example.android.pokemonapp.domain.Pokemon" />
+        <variable
+            name="clickListener"
+            type="com.example.android.pokemonapp.screens.search.PokemonClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pokemon_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/pokemon">
+        style="@style/pokemon"
+        android:onClick="@{() -> clickListener.onClick(pokemon)}">
 
         <ImageView
             android:id="@+id/pokemon_img"

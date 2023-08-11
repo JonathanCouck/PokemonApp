@@ -39,6 +39,12 @@
         <item name="android:layout_height">@dimen/xl</item>
     </style>
 
+    <style name="pokemon_detail_image">
+        <item name="srcCompat">@drawable/loading_img</item>
+        <item name="android:layout_width">@dimen/xl</item>
+        <item name="android:layout_height">@dimen/xl</item>
+    </style>
+
     <style name="pokemon_small_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

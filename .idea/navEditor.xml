@@ -19,11 +19,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_homeFragment_to_pokemonFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_homeFragment_to_pokemonSearchFragment">
                               <value>
                                 <LayoutPositions />
@@ -34,18 +29,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="pokemonFragment">
+                  <entry key="pokemonDetailFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2748" />
-                            <option name="y" value="133" />
+                            <option name="x" value="-2502" />
+                            <option name="y" value="-390" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_pokemonFragment_to_homeFragment">
+                            <entry key="action_pokemonDetailFragment_to_pokemonSearchFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -60,13 +55,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2741" />
-                            <option name="y" value="-387" />
+                            <option name="x" value="-2777" />
+                            <option name="y" value="-388" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_pokemonSearchFragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_pokemonSearchFragment_to_pokemonDetailFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

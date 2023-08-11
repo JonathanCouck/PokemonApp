@@ -1,17 +1,20 @@
 package com.example.android.pokemonapp.screens.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.android.pokemonapp.R
 import com.example.android.pokemonapp.Utils
 import com.example.android.pokemonapp.databinding.FragmentPokemonSearchBinding
-import com.example.android.pokemonapp.databinding.LayoutPokemonBinding
+import com.example.android.pokemonapp.domain.Pokemon
 
 class PokemonSearchFragment : Fragment() {
     private lateinit var binding: FragmentPokemonSearchBinding
@@ -33,13 +36,14 @@ class PokemonSearchFragment : Fragment() {
         viewModel = pokemonSearchVM
 
         setOnClickListeners()
+        (activity as AppCompatActivity).supportActionBar?.title = "Pokemon Search"
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
     private fun handleSearchClick() {
-        viewModel.fetchPokemon(binding.searchInput.text.toString())
+        viewModel.fetchAllPokemon(binding.searchInput.text.toString())
 
         Utils.hideSoftKeyboard(this@PokemonSearchFragment.requireContext(), binding.searchInput)
     }
@@ -49,7 +53,10 @@ class PokemonSearchFragment : Fragment() {
             handleSearchClick()
         }
 
-        val adapter = PokemonAdapter()
+
+        val adapter = PokemonAdapter(PokemonClickListener  {
+            name -> viewModel.onPokemonClicked(name)
+        })
         binding.pokemonRecycler.adapter = adapter
 
         viewModel.pokemon.observe(viewLifecycleOwner, Observer {
@@ -58,5 +65,15 @@ class PokemonSearchFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToPokemonDetail.observe(viewLifecycleOwner, Observer { pokemon ->
+            pokemon?.let {
+                viewModel.fetchPokemon(pokemon)
+            }
+        })
+        viewModel.selectedPokemon.observe(viewLifecycleOwner, Observer { pokemon ->
+            pokemon?.let {
+                this.findNavController().navigate(R.id.action_pokemonSearchFragment_to_pokemonDetailFragment)
+            }
+        })
     }
 }

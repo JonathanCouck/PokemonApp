@@ -42,7 +42,7 @@ fun List<PokemonDto>.asDatabase(): Array<DatabasePokemon> {
     return this.map {
         DatabasePokemon(
             number = it.number,
-            name = it.name.capitalize(),
+            name = it.name,
             weight = it.weight/10,
             height = it.height*10,
             spriteUrl = it.sprite.spriteUrl,

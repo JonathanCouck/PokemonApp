@@ -21,5 +21,17 @@
         <action
             android:id="@+id/action_pokemonSearchFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_pokemonSearchFragment_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.example.android.pokemonapp.screens.detail.PokemonDetailFragment"
+        android:label="PokemonDetailFragment">
+
+        <action
+            android:id="@+id/action_pokemonDetailFragment_to_pokemonSearchFragment"
+            app:destination="@id/pokemonSearchFragment" />
     </fragment>
 </navigation>
