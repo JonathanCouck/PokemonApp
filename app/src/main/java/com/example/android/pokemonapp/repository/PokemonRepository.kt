@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.android.pokemonapp.database.DatabaseRoom
 import com.example.android.pokemonapp.database.pokemon.asDomain
+import com.example.android.pokemonapp.domain.PokemonDetail
 import com.example.android.pokemonapp.network.pokemon.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.min
 
 class PokemonRepository(private val db: DatabaseRoom) {
@@ -18,13 +21,30 @@ class PokemonRepository(private val db: DatabaseRoom) {
         it.asDomain()
     }
 
-    suspend fun getPokemonDetails(name: String): LiveData<PokemonDto?> {
-        val result = MutableLiveData<PokemonDto?>()
+    suspend fun getPokemonDetails(name: String): LiveData<PokemonDetail?> {
+        val result = MutableLiveData<PokemonDetail?>()
         withContext(Dispatchers.IO) {
             try {
                 val newPokemon = PokemonApi.retrofitService.getPokemonDetailByNameAsync(name.lowercase()).await()
                 newPokemon.let {
-                    result.postValue(newPokemon)
+                    val abilitiesArray: Array<String> = newPokemon.abilities.map { it.ability.name.replaceFirstChar { // Map abilities.ability.name to abilities capitalized
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    } }.toTypedArray()
+                    Log.e("Abilities", abilitiesArray.toString())
+                    result.postValue(PokemonDetail(
+                        number = newPokemon.number,
+                        name = newPokemon.name.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(
+                                Locale.ROOT
+                            ) else it.toString()
+                        },
+                        weight = newPokemon.weight,
+                        height = newPokemon.height,
+                        spriteUrl = newPokemon.sprite.spriteFrontUrl,
+                        abilities = abilitiesArray,
+                    ))
                     delay(100)
                 }
             } catch (e: Exception) {

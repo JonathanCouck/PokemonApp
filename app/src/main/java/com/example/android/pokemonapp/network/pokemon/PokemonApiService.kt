@@ -35,7 +35,7 @@ interface PokemonApiService {
     fun getPokemonByNameAsync(@Path("name") name: String): Deferred<PokemonDto>
 
     @GET("{name}")
-    fun getPokemonDetailByNameAsync(@Path("name") name: String): Deferred<PokemonDto>
+    fun getPokemonDetailByNameAsync(@Path("name") name: String): Deferred<PokemonDetailDto>
 }
 
 object PokemonApi {

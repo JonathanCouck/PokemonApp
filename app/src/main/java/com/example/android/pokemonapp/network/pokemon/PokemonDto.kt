@@ -33,9 +33,41 @@ data class PokemonDto(
     val sprite: PokemonSpriteDto
 )
 
+data class PokemonDetailDto(
+    @Json(name = "id")
+    val number: Int,
+
+    @Json(name = "name")
+    val name: String,
+
+    @Json(name = "height")
+    val height: Int,
+
+    @Json(name = "weight")
+    val weight: Double,
+
+    @Json(name = "sprites")
+    val sprite: PokemonSpriteDto,
+
+    @Json(name = "abilities")
+    val abilities: List<PokemonAbilities>
+)
+
+data class PokemonAbilities (
+    @Json(name = "ability")
+    val ability: Ability
+)
+
+data class Ability (
+    @Json(name= "name")
+    val name: String
+)
+
 data class PokemonSpriteDto (
     @Json(name = "front_default")
-    val spriteUrl: String
+    val spriteFrontUrl: String,
+    @Json(name = "back_default")
+    val spriteBackUrl: String?
 )
 
 fun List<PokemonDto>.asDatabase(): Array<DatabasePokemon> {
@@ -45,7 +77,7 @@ fun List<PokemonDto>.asDatabase(): Array<DatabasePokemon> {
             name = it.name,
             weight = it.weight/10,
             height = it.height*10,
-            spriteUrl = it.sprite.spriteUrl,
+            spriteUrl = it.sprite.spriteFrontUrl,
         )
     }.toTypedArray()
 }

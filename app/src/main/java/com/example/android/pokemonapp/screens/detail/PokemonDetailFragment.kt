@@ -35,14 +35,11 @@ class PokemonDetailFragment : Fragment() {
 
         val pokemonSearchVM: PokemonSearchViewModel by activityViewModels()
         viewModel = pokemonSearchVM
+        binding.viewModel = viewModel
 
         viewModel.selectedPokemon.observe(viewLifecycleOwner, Observer {
             it?.let {
-                (activity as AppCompatActivity).supportActionBar?.title = it.name.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(
-                        Locale.ROOT
-                    ) else it.toString()
-                }
+                (activity as AppCompatActivity).supportActionBar?.title = it.name
                 binding.selectedPokemon = it
             }
         })
