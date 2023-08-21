@@ -22,6 +22,9 @@ class PokemonSearchViewModel(application: Application): AndroidViewModel(applica
     private val _selectedPokemon = MutableLiveData<PokemonDetail?>()
     val selectedPokemon: LiveData<PokemonDetail?> = _selectedPokemon
 
+    private val _pokemonDetailName = MutableLiveData<String?>()
+    val pokemonDetailName: LiveData<String?> = _pokemonDetailName
+
     init {
         fetchAllPokemon("", true)
     }
@@ -39,15 +42,15 @@ class PokemonSearchViewModel(application: Application): AndroidViewModel(applica
         }
     }
 
-    fun selectedAbilitiesToString(): String? {
-        return _selectedPokemon.value?.abilities?.joinToString(", ")
-    }
-
     private val _navigateToPokemonDetail = MutableLiveData<String>()
     val navigateToPokemonDetail
         get() = _navigateToPokemonDetail
 
     fun onPokemonClicked(name: String) {
         _navigateToPokemonDetail.value = name
+    }
+
+    fun afterPokemonClicked(name: String) {
+        _pokemonDetailName.value = name
     }
 }

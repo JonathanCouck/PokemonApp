@@ -35,7 +35,6 @@ class PokemonDetailFragment : Fragment() {
 
         val pokemonSearchVM: PokemonSearchViewModel by activityViewModels()
         viewModel = pokemonSearchVM
-        binding.viewModel = viewModel
 
         viewModel.selectedPokemon.observe(viewLifecycleOwner, Observer {
             it?.let {

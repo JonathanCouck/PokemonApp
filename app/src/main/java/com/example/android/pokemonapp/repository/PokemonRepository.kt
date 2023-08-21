@@ -27,12 +27,11 @@ class PokemonRepository(private val db: DatabaseRoom) {
             try {
                 val newPokemon = PokemonApi.retrofitService.getPokemonDetailByNameAsync(name.lowercase()).await()
                 newPokemon.let {
-                    val abilitiesArray: Array<String> = newPokemon.abilities.map { it.ability.name.replaceFirstChar { // Map abilities.ability.name to abilities capitalized
+                    val abilitiesString: String = newPokemon.abilities.map { it.ability.name.replaceFirstChar { // Map abilities.ability.name to abilities capitalized
                         if (it.isLowerCase()) it.titlecase(
                             Locale.getDefault()
                         ) else it.toString()
-                    } }.toTypedArray()
-                    Log.e("Abilities", abilitiesArray.toString())
+                    } }.toTypedArray().joinToString(", ")
                     result.postValue(PokemonDetail(
                         number = newPokemon.number,
                         name = newPokemon.name.replaceFirstChar {
@@ -43,7 +42,7 @@ class PokemonRepository(private val db: DatabaseRoom) {
                         weight = newPokemon.weight,
                         height = newPokemon.height,
                         spriteUrl = newPokemon.sprite.spriteFrontUrl,
-                        abilities = abilitiesArray,
+                        abilities = abilitiesString,
                     ))
                     delay(100)
                 }

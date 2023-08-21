@@ -8,9 +8,6 @@
         <variable
             name="selectedPokemon"
             type="com.example.android.pokemonapp.domain.PokemonDetail" />
-        <variable
-            name="viewModel"
-            type="com.example.android.pokemonapp.screens.search.PokemonSearchViewModel" />
     </data>
 
     <LinearLayout
@@ -69,7 +66,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/pokemon_detail_name"
                     style="@style/pokemon_large_text"
                     android:text="@{selectedPokemon.name}"
                     tools:text="Name" />
@@ -148,7 +145,7 @@
                     android:id="@+id/tv_abilities"
                     style="@style/pokemon_small_text"
                     android:layout_marginStart="@dimen/s"
-                    android:text="@{viewModel.selectedAbilitiesToString()}"
+                    android:text="@{selectedPokemon.abilities}"
                     tools:text="Blaze, Solar-power" />
             </LinearLayout>
         </LinearLayout>

@@ -14,5 +14,5 @@ data class PokemonDetail(
     val weight: Double,
     val height: Int,
     val spriteUrl: String,
-    val abilities: Array<String>
+    val abilities: String
 )

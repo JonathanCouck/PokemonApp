@@ -72,7 +72,10 @@ class PokemonSearchFragment : Fragment() {
         })
         viewModel.selectedPokemon.observe(viewLifecycleOwner, Observer { pokemon ->
             pokemon?.let {
-                this.findNavController().navigate(R.id.action_pokemonSearchFragment_to_pokemonDetailFragment)
+                if (viewModel.selectedPokemon.value?.name != viewModel.pokemonDetailName.value) {
+                    this.findNavController().navigate(R.id.pokemonDetailFragment)
+                    viewModel.afterPokemonClicked(pokemon.name)
+                }
             }
         })
     }
