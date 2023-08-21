@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.pokemonapp.R
 import com.example.android.pokemonapp.Utils
 import com.example.android.pokemonapp.databinding.FragmentPokemonSearchBinding
-import com.example.android.pokemonapp.domain.Pokemon
 
 class PokemonSearchFragment : Fragment() {
     private lateinit var binding: FragmentPokemonSearchBinding
@@ -67,14 +66,11 @@ class PokemonSearchFragment : Fragment() {
 
         viewModel.navigateToPokemonDetail.observe(viewLifecycleOwner, Observer { pokemon ->
             pokemon?.let {
-                viewModel.fetchPokemon(pokemon)
-            }
-        })
-        viewModel.selectedPokemon.observe(viewLifecycleOwner, Observer { pokemon ->
-            pokemon?.let {
-                if (viewModel.selectedPokemon.value?.name != viewModel.pokemonDetailName.value) {
-                    this.findNavController().navigate(R.id.pokemonDetailFragment)
-                    viewModel.afterPokemonClicked(pokemon.name)
+                // Workaround with isNavigated, because this observe triggers when pressing back button on PokemonDetailFragment, retriggering the navigate
+                if (viewModel.isNavigated.value == false) {
+                    this.findNavController().navigate(PokemonSearchFragmentDirections.actionPokemonSearchFragmentToPokemonDetailFragment(pokemon))
+                } else {
+                    viewModel.isNavigated.postValue(false)
                 }
             }
         })

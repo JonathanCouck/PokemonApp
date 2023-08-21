@@ -1,7 +1,6 @@
 package com.example.android.pokemonapp.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.android.pokemonapp.database.DatabaseRoom
@@ -21,8 +20,10 @@ class PokemonRepository(private val db: DatabaseRoom) {
         it.asDomain()
     }
 
-    suspend fun getPokemonDetails(name: String): LiveData<PokemonDetail?> {
-        val result = MutableLiveData<PokemonDetail?>()
+    val pokemonDetail = MutableLiveData<PokemonDetail>()
+
+    suspend fun getPokemonDetails(name: String) {
+        var result: PokemonDetail? = null
         withContext(Dispatchers.IO) {
             try {
                 val newPokemon = PokemonApi.retrofitService.getPokemonDetailByNameAsync(name.lowercase()).await()
@@ -32,7 +33,7 @@ class PokemonRepository(private val db: DatabaseRoom) {
                             Locale.getDefault()
                         ) else it.toString()
                     } }.toTypedArray().joinToString(", ")
-                    result.postValue(PokemonDetail(
+                    pokemonDetail.postValue(PokemonDetail(
                         number = newPokemon.number,
                         name = newPokemon.name.replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(
@@ -50,7 +51,6 @@ class PokemonRepository(private val db: DatabaseRoom) {
                 Log.e("Can't get detail", "${e.message.toString()}, ${name}")
             }
         }
-        return result
     }
 
     suspend fun refreshPokemon(searchTerm: String, initial: Boolean) {

@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="16dp">
-
     <data>
         <variable
-            name="selectedPokemon"
+            name="pokemonDetail"
             type="com.example.android.pokemonapp.domain.PokemonDetail" />
     </data>
 
@@ -31,9 +30,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/pokemon_detail_image"
                     style="@style/pokemon_detail_image"
                     android:background="@color/light_yellow"
-                    app:imageUrl="@{selectedPokemon.spriteUrl}"
+                    app:imageUrl="@{pokemonDetail.spriteUrl}"
                     tools:srcCompat="@drawable/loading_animation" />
             </androidx.cardview.widget.CardView>
 
@@ -60,7 +60,7 @@
                     <TextView
                         android:id="@+id/tv_nr"
                         style="@style/pokemon_large_text"
-                        android:text="@{Integer.toString(selectedPokemon.number)}"
+                        android:text="@{Integer.toString(pokemonDetail.number)}"
                         android:textStyle="bold"
                         tools:text="001" />
                 </LinearLayout>
@@ -68,14 +68,11 @@
                 <TextView
                     android:id="@+id/pokemon_detail_name"
                     style="@style/pokemon_large_text"
-                    android:text="@{selectedPokemon.name}"
+                    android:text="@{pokemonDetail.name}"
                     tools:text="Name" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="32dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,16 +92,13 @@
                     android:id="@+id/tv_height"
                     style="@style/pokemon_small_text"
                     android:layout_marginStart="@dimen/s"
-                    android:text="@{Integer.toString(selectedPokemon.height)}"
+                    android:text="@{Integer.toString(pokemonDetail.height)}"
                     tools:text="100" />
 
                 <TextView
                     style="@style/pokemon_small_text"
                     android:text="@string/cm" />
             </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -120,16 +114,13 @@
                     android:id="@+id/tv_weight"
                     style="@style/pokemon_small_text"
                     android:layout_marginStart="@dimen/s"
-                    android:text="@{Double.toString(selectedPokemon.weight)}"
+                    android:text="@{Double.toString(pokemonDetail.weight)}"
                     tools:text="50" />
 
                 <TextView
                     style="@style/pokemon_small_text"
                     android:text="@string/kg" />
             </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -145,7 +136,7 @@
                     android:id="@+id/tv_abilities"
                     style="@style/pokemon_small_text"
                     android:layout_marginStart="@dimen/s"
-                    android:text="@{selectedPokemon.abilities}"
+                    android:text="@{pokemonDetail.abilities}"
                     tools:text="Blaze, Solar-power" />
             </LinearLayout>
         </LinearLayout>

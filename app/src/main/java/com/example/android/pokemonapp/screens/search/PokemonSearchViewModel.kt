@@ -1,6 +1,7 @@
 package com.example.android.pokemonapp.screens.search
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,12 +20,6 @@ class PokemonSearchViewModel(application: Application): AndroidViewModel(applica
 
     val pokemon = pokemonRepository.pokemon
 
-    private val _selectedPokemon = MutableLiveData<PokemonDetail?>()
-    val selectedPokemon: LiveData<PokemonDetail?> = _selectedPokemon
-
-    private val _pokemonDetailName = MutableLiveData<String?>()
-    val pokemonDetailName: LiveData<String?> = _pokemonDetailName
-
     init {
         fetchAllPokemon("", true)
     }
@@ -35,22 +30,14 @@ class PokemonSearchViewModel(application: Application): AndroidViewModel(applica
         }
     }
 
-    fun fetchPokemon(name: String) {
-        viewModelScope.launch {
-            val newPokemon = pokemonRepository.getPokemonDetails(name)
-            _selectedPokemon.postValue(newPokemon.value)
-        }
-    }
-
     private val _navigateToPokemonDetail = MutableLiveData<String>()
     val navigateToPokemonDetail
         get() = _navigateToPokemonDetail
 
-    fun onPokemonClicked(name: String) {
-        _navigateToPokemonDetail.value = name
-    }
+    val isNavigated = MutableLiveData<Boolean>(false)
 
-    fun afterPokemonClicked(name: String) {
-        _pokemonDetailName.value = name
+    fun onPokemonClicked(name: String) {
+        _navigateToPokemonDetail.postValue(name)
+        isNavigated.postValue(true)
     }
 }
