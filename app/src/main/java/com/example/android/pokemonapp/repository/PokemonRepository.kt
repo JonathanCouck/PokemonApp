@@ -53,40 +53,23 @@ class PokemonRepository(private val db: DatabaseRoom) {
         }
     }
 
-    suspend fun refreshPokemon(searchTerm: String, initial: Boolean) {
+    suspend fun refreshPokemon(searchTerm: String) {
         withContext(Dispatchers.IO) {
             try {
-                if(initial) {
-                    if(db.pokemonDao.getAllPokemon().value?.count() == 0) {
-                        var names = PokemonApi.retrofitService.getPokemonAsync().await().results
+                var names = PokemonApi.retrofitService.getPokemonAsync().await().results
 
-                        val pokemonList: ArrayList<PokemonDto> = arrayListOf();
-                        var i = 0
+                if(searchTerm.isNotBlank())
+                    names = names.filter { p -> p.name.contains(searchTerm) }
 
-                        while(i<20 && i < names.count()) {
-                            pokemonList.add(PokemonApi.retrofitService.getPokemonByNameAsync(names[i].name).await())
-                            i++
-                        }
-                        db.pokemonDao.insertAll(pokemonList.asDatabase())
-                    } else {
-                        //Empty else
-                    }
-                } else {
-                    var names = PokemonApi.retrofitService.getPokemonAsync().await().results
+                val pokemonList: ArrayList<PokemonDto> = arrayListOf();
+                var i = 0
 
-                    if(searchTerm.isNotBlank())
-                        names = names.filter { p -> p.name.contains(searchTerm) }
-
-                    val pokemonList: ArrayList<PokemonDto> = arrayListOf();
-                    var i = 0
-
-                    while(i < min(names.count(), 30)) {
-                        pokemonList.add(PokemonApi.retrofitService.getPokemonByNameAsync(names[i].name).await())
-                        i++
-                    }
-                    db.pokemonDao.deleteAll()
-                    db.pokemonDao.insertAll(pokemonList.asDatabase())
+                while(i < min(names.count(), 30)) {
+                    pokemonList.add(PokemonApi.retrofitService.getPokemonByNameAsync(names[i].name).await())
+                    i++
                 }
+                db.pokemonDao.deleteAll()
+                db.pokemonDao.insertAll(pokemonList.asDatabase())
             } catch (e: Exception) {
                 Log.e("Can't get pokemon", e.message.toString())
             }

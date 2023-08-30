@@ -20,13 +20,9 @@ class PokemonSearchViewModel(application: Application): AndroidViewModel(applica
 
     val pokemon = pokemonRepository.pokemon
 
-    init {
-        fetchAllPokemon("", true)
-    }
-
-    fun fetchAllPokemon(searchTerm: String, initial: Boolean = false) {
+    fun fetchAllPokemon(searchTerm: String) {
         viewModelScope.launch {
-            pokemonRepository.refreshPokemon(searchTerm.lowercase(), initial)
+            pokemonRepository.refreshPokemon(searchTerm.lowercase())
         }
     }
 
